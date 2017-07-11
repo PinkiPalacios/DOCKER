@@ -1,0 +1,27 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+
+  nginx:
+    image: nginx
+    volumes:
+      - ./Front/dist:/var/www/
+      - ./Front/default:/etc/nginx/conf.d/default.conf
+    
+    links:
+      - "web:web"
+    ports:
+      - "80:80"
+  web:
+    build: ./backend
+    command:  npm start
+    volumes:
+      - ./backend/bin:/backend/bin
+      - ./backend/routes:/backend/routes
+      - ./backend/views:/backend/views
+      - ./backend/public:/backend/public
+      - ./backend/models:/backend/models
+
+    ports:
+      - "3000:3000"

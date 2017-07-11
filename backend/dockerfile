@@ -1,0 +1,9 @@
+FROM node:alpine
+RUN mkdir /backend
+WORKDIR /backend
+ADD ./package.json package.json
+ADD ./app.js app.js
+RUN npm install nodemon
+RUN npm install
+
+EXPOSE 8080
